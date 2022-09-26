@@ -1,0 +1,19 @@
+.nav{
+    background-color: rgb(116, 163, 224);
+    &-color{
+        color:rgb(255, 255, 255);
+        &:hover{
+            color:rgb(0, 51, 119);
+            transform: scale(0.95,0.95);
+            transition: all 0.3s;
+        }
+    }
+    &-logo{
+        width: 26px;
+        height: 26px;
+    }
+}
+
+.navbar-toggler-border-color{
+    color: rgb(0, 51, 119);
+}
