@@ -1,0 +1,16 @@
+.nav-color {
+  color: #fafafa; }
+  .nav-color:hover {
+    color: #175972;
+    transform: scale(0.95, 0.95);
+    transition: all 0.3s; }
+
+.nav-fondo {
+  background-color: #a3c3cd; }
+
+.nav-logo {
+  width: 26px;
+  height: 26px; }
+
+.navbar-toggler-border-color {
+  color: #175972; }
