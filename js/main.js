@@ -60,8 +60,28 @@ function addCart(id) {
         cart.push(prod)
         console.table(cart)
         localStorage.setItem("cart", JSON.stringify(cart))
+        confirm ()
 }
 addCart(id)
+
+const confirm = () =>{
+    Swal.fire({
+        title: 'Listo!',
+        text: "El producto se agego a tu carrito!",
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ver carrito',
+        cancelButtomText: 'Seguir comprando'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+            window.location.href = "pages/carrito.html"
+            )
+        }
+    })
+}
 
 function getCart() {
     if (localStorage.getItem("cart")) {
