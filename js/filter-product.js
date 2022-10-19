@@ -1,4 +1,3 @@
-//Filtrar productos
 let inputFilter = document.querySelector("input")
 
 function filterProducts(){
@@ -9,7 +8,6 @@ function filterProducts(){
             if (search.length === 0){
                 console.clear()
                 console.warn("No se encontraron productos.")
-                loadProducts (products)
             } else {
             loadProducts(search)
             }
@@ -18,6 +16,6 @@ function filterProducts(){
         loadProducts(products)
     }
 }
-
 inputFilter.addEventListener("input", filterProducts)
 filterProducts()
+

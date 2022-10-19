@@ -1,23 +1,44 @@
-.nav{
-    &-color{
-        color: rgb(250, 250, 250); 
+.navone{
+    height: 120px;
+    background-color: $color-one;
+}
+
+.navtwo{
+    height: 50px;
+    background-color: $color-two;
+
+    &_link{
+        font-family: $font-text;
+        color: $color-one;
+        margin-bottom: 10px;
+        text-align: center;
         &:hover{
-            color: rgb(23, 89, 114);
-            transform: scale(0.95,0.95);
-            transition: all 0.3s;
+            color: $special-color;
+            }
+        &::after{
+            content: "|";
+            margin-left: 15px;
         }
-    }
-
-    &-fondo{
-        background-color:rgb(163, 195, 205);
-    }
-
-    &-logo{
-        width: 26px;
-        height: 26px;
     }
 }
 
-.navbar-toggler-border-color{
-    color: rgb(23, 89, 114);
+.nav_icon{
+    width: 26px;
+    height: 26px;
+    margin-left: 10px;
+}
+
+.nav_logos{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search_input{
+    width: 500px;
+    background-color: rgb(241, 239, 239);
+    border-radius: 20px;
+}
+
+.carrousel{
+    margin-top: 3px;
 }

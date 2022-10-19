@@ -1,91 +1,59 @@
-//Generar cards HTML
+const section = document.querySelector(`#fragances`)
 const products = []
+const cart =[]
+const prodJSON = "../data-base/products.json"
+let HTMLcontent = ""
 
 
-class Product {
-    constructor(id, brand, name, price) {
-        this.id = id;
-        this.brand = brand;
-        this.name = name;
-        this.price = price;
+const makeCard = (content)=> {
+    const {id, brand, name, price, img} = content
+    return  `<div class="col col-3" id="fragances">
+                <div class="card" style="width: 13rem;">
+                    <img src="../${img}" class="card-img-top card_img">
+                    <div class="card-body card_product">
+                        <h5 class="card-title card_brand">${brand}</h5>
+                        <p class="card-text card_name">${name}</p>
+                        <p class="card-text card_price">$${price}</p>
+                        <button class="btn card_btn" id="btn${id}">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            </div>`
+}
 
+const showError = ()=> {
+    return `<div class="error">
+                <h2>¡Ups...!</h2>
+                <img src="images/cruz.png">
+                <p> No pudimos cargar la información.</p>
+                <p> Por favor, intenta nuevamente en unos minutos.</p>
+            </div>`
+}
+
+const loadProducts = async (array) =>{
+    try{
+        const response = await fetch ('../products.json'); 
+        const data = await response.json ()
+        array.push(...data); 
+        array.forEach(element => HTMLcontent += makeCard (element))
+    }
+    catch (error) {
+        HTMLcontent += showError ()
+    }
+    finally {
+        section.innerHTML = HTMLcontent
     }
 }
 
-function generator() {
-    products.push(new Product("123", "Nina Ricci", "NINA EDP - 50ML", 15000));
-    products.push(new Product("234", "Nina Ricci", "LUNA EDP - 50ML", 15800));
-    products.push(new Product("345", "Nina Ricci", "NINA ROUGE EDP - 80ML", 18000));
-    products.push(new Product("456", "Nina Ricci", "MADMOISELLE RICCI EDP - 80ML", 17900));
-    products.push(new Product("567", "Givenchy", "L'INTERDIT EDP - 80ML", 22000));
-    products.push(new Product("678", "Givenchy", "L'INTERDIT ROUGE EDP - 80ml", 24000));
-}
-generator()
+document.addEventListener("DOMContentLoaded", async ()=> {
+    const wait = await loadProducts(products)
+}) 
 
-
-
-function loadProducts(array) {
-    let card = ""
-        section.innerHTML = ""
-        array.forEach(Product => {
-            card = `<div>
-                        <h2>${Product.brand}</h2>
-                        <p>${Product.name}</p>
-                        <h3>$ ${parseFloat(Product.price)}</h3>
-                        <button id="btn${Product.id}">+</button>
-                    </div>`
-                    section.innerHTML += card
-        })
-}  
-
-
-let section = document.querySelector(`#post`)
-
-
-loadProducts(products)
-
-//buttons
-
-function addButton() {
+//FUNCION BOTONES
+function buttonEvent(){
     products.forEach(Product => {
         const btn = document.querySelector(`#btn${Product.id}`)
-            btn.addEventListener("click", ()=> addCart(`${Product.id}`))
-    })
+            btn.addEventListener("click", ()=> addToCart(`${Product.id}`))
+    });
 }
-addButton()
+buttonEvent()
 
-
-function addCart(id) {
-    const prod = products.find(Product => Product.id == id)
-        cart.push(prod)
-        console.table(cart)
-        localStorage.setItem("cart", JSON.stringify(cart))
-        confirm ()
-}
-addCart(id)
-
-const confirm = () =>{
-    Swal.fire({
-        title: 'Listo!',
-        text: "El producto se agego a tu carrito!",
-        icon: 'success',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Ver carrito',
-        cancelButtomText: 'Seguir comprando'
-        }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire(
-            window.location.href = "pages/carrito.html"
-            )
-        }
-    })
-}
-
-function getCart() {
-    if (localStorage.getItem("cart")) {
-        cart = JSON.parse(localStorage.getItem("cart"))
-    }
-}
-getCart()
